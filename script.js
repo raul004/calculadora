@@ -16,6 +16,47 @@ class Calculator {
         this.clear();
     }
 
+    calculate() {
+        let result;
+
+        const previousOperandFloat = parseFloat(this.previousOperand);
+        const currentOperandFloat = parseFloat(this.currentOperand);
+
+        if (isNaN(previousOperandFloat) || isNaN(currentOperandFloat)) return;
+
+        switch (this.operation) {
+            case "+":
+                result = previousOperandFloat + currentOperandFloat;
+                break;
+            case "-":
+                result = previousOperandFloat - currentOperandFloat;
+                break;
+            case "*":
+                result = previousOperandFloat * currentOperandFloat;
+                break;
+            case "÷":
+                result = previousOperandFloat / currentOperandFloat;
+                break;
+            default:
+                return;
+        }
+
+        this.currentOperand = result;
+        this.operation = undefined;
+        this.previousOperand = "";
+    }
+
+    chooseOperation(operation) {
+        if (this.previousOperand != "") {
+            this.calculate();
+        }
+
+        this.operation = operation;
+
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = "";
+    }
+
     appendNumber(number) {
         if (this.currentOperand.includes(".") && number === ".") return;
 
@@ -29,7 +70,7 @@ class Calculator {
     }
 
     uptadeDisplay() {
-        this.previousOperandTxt.innerText = this.previousOperand;
+        this.previousOperandTxt.innerText = `${this.previousOperand} ${this.operation || ""}`;
         this.currentOperandTxt.innerText = this.currentOperand;
     }
 }
@@ -38,6 +79,13 @@ const calculator = new Calculator(
     previousOperandTxt,
     currentOperandTxt
 );
+
+for (const operationBtn of operationsBtns) {
+    operationBtn.addEventListener("click", () => {
+        calculator.chooseOperation(operationBtn.innerHTML);
+        calculator.uptadeDisplay();
+    })
+}
 
 for (const numberBtn of numberBtns) {
     numberBtn.addEventListener("click", () => {
