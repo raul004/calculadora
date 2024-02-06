@@ -7,7 +7,7 @@ const deleteBtn = document.querySelectorAll("[data-delete]");
 const numberBtns = document.querySelectorAll("[data-number]");
 
 const operationsBtns = document.querySelectorAll("[data-operator]");
-const equalsBtn = document.querySelectorAll("[data-equals]");
+const equalsBtn = document.querySelector("[data-equals]");
 
 class Calculator {
     constructor(previousOperandTxt, currentOperandTxt) {
@@ -96,5 +96,10 @@ for (const numberBtn of numberBtns) {
 
 allClearBtn.addEventListener("click", () => {
     calculator.clear();
+    calculator.uptadeDisplay();
+});
+
+equalsBtn.addEventListener("click", () => {
+    calculator.calculate();
     calculator.uptadeDisplay();
 });
