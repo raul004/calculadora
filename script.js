@@ -2,7 +2,7 @@ const previousOperandTxt = document.querySelector("[data-previous-operand]");
 const currentOperandTxt = document.querySelector("[data-current-operand]");
 
 const allClearBtn = document.querySelector("[data-all-clear]");
-const deleteBtn = document.querySelectorAll("[data-delete]");
+const deleteBtn = document.querySelector("[data-delete]");
 
 const numberBtns = document.querySelectorAll("[data-number]");
 
@@ -14,6 +14,10 @@ class Calculator {
         this.previousOperandTxt = previousOperandTxt;
         this.currentOperandTxt = currentOperandTxt;
         this.clear();
+    }
+
+    delete() {
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
     }
 
     calculate() {
@@ -103,3 +107,8 @@ equalsBtn.addEventListener("click", () => {
     calculator.calculate();
     calculator.uptadeDisplay();
 });
+
+deleteBtn.addEventListener("click", () => {
+    calculator.delete();
+    calculator.uptadeDisplay();
+})
